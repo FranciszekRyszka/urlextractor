@@ -11,9 +11,26 @@ Screen {
 
 #file-section,
 #options-section,
+#view-section,
 #output-section,
 #action-row {
     height: auto;
+    margin-bottom: 1;
+}
+
+#view-section Select {
+    width: 24;
+    margin-right: 2;
+}
+
+.field-label {
+    width: auto;
+    margin-right: 1;
+    content-align: left middle;
+    height: 3;
+}
+
+#progress {
     margin-bottom: 1;
 }
 
@@ -65,4 +82,19 @@ Screen {
     padding: 0 1;
     background: $panel;
     color: $text;
+}
+
+/* File picker modal */
+#picker {
+    width: 80%;
+    height: 80%;
+    padding: 1 2;
+    border: thick $primary;
+    background: $surface;
+}
+
+#tree {
+    height: 1fr;
+    margin: 1 0;
+    border: round $primary;
 }

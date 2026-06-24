@@ -6,12 +6,18 @@ file with one URL per line.
 
 ## Features
 
-- Add one or more `.txt` / `.md` files.
+- Add inputs as **files, folders (scanned recursively), or glob patterns**
+  (e.g. `docs/*.md`).
+- **Drag-and-drop**: drag a file onto the input box (then Add/Enter), or drop
+  it while the box is unfocused to add it automatically.
+- **File picker**: a `Browse` button opens a directory-tree modal.
 - Extract all `http://` and `https://` links with a regex-based parser.
-- Optional order-preserving deduplication.
-- Preview results in a scrollable table before exporting.
+- Optional order-preserving deduplication, with per-URL occurrence counts.
+- **Sort** results: original order, A→Z, Z→A, by domain, or by frequency.
+- Preview results (with counts) in a scrollable table before exporting.
+- **Progress bar** while scanning.
+- **Multiple export formats**: plain text, CSV, JSON, or Markdown.
 - Inline status messages and error reporting (no crashes on bad input).
-- Export to a UTF-8 text file, one URL per line.
 
 ## Requirements
 
@@ -56,20 +62,26 @@ url-extractor
 The app is a TUI but accepts arguments to pre-fill the form for automation:
 
 ```bash
-python app.py notes.txt README.md --output urls.txt --dedupe --overwrite
+python app.py notes.txt docs/ "blog/*.md" --output urls.csv --format csv --sort frequency --overwrite
 ```
 
-| Option           | Effect                                              |
-| ---------------- | --------------------------------------------------- |
-| `paths...`       | Initial input files to load on startup.             |
-| `-o`, `--output` | Default output path.                                |
-| `--dedupe`       | Enable deduplication by default (already the default). |
-| `--no-dedupe`    | Disable deduplication by default.                   |
-| `--overwrite`    | Allow overwriting an existing output file.          |
+| Option           | Effect                                                  |
+| ---------------- | ------------------------------------------------------- |
+| `paths...`       | Initial inputs: files, folders, or globs.               |
+| `-o`, `--output` | Default output path.                                    |
+| `--dedupe`       | Enable deduplication by default (already the default).  |
+| `--no-dedupe`    | Disable deduplication by default.                       |
+| `--overwrite`    | Allow overwriting an existing output file.              |
+| `--sort`         | Default ordering: `original`, `az`, `za`, `domain`, `frequency`. |
+| `--format`       | Default export format: `txt`, `csv`, `json`, `md`.      |
+
+The output file's extension is normalized to match the chosen format.
 
 ### In-app controls
 
-- **Add file** — validate and add the path in the input box.
+- **Add** — resolve the input box (file, folder, or glob) and add the files.
+- **Browse** — open the file-picker modal (Esc cancels).
+- **Sort / Format** — choose result ordering and export format.
 - **Scan** — read all added files and populate the results table.
 - **Export** — write the current results to the output path.
 - **Clear** — reset files and results.
@@ -81,8 +93,9 @@ python app.py notes.txt README.md --output urls.txt --dedupe --overwrite
 .
 ├── app.py        # Textual app, event handlers, CLI entry point
 ├── ui.py         # Reusable widget composition / layout
-├── extractor.py  # URL regex, cleaning, deduplication
-├── io_utils.py   # Safe file reading and writing
+├── screens.py    # File-picker modal screen
+├── extractor.py  # URL regex, cleaning, deduplication, sorting
+├── io_utils.py   # Input resolution, safe reading, multi-format export
 ├── app.tcss      # TUI styling (App.CSS_PATH)
 ├── pyproject.toml
 └── README.md
