@@ -1,0 +1,68 @@
+/* Styling for the URL Extractor TUI. Referenced via App.CSS_PATH. */
+
+Screen {
+    layout: vertical;
+}
+
+#main {
+    height: 1fr;
+    padding: 1 2;
+}
+
+#file-section,
+#options-section,
+#output-section,
+#action-row {
+    height: auto;
+    margin-bottom: 1;
+}
+
+#file-input-row {
+    height: auto;
+}
+
+#path-input,
+#output-input {
+    width: 1fr;
+}
+
+#add {
+    margin-left: 1;
+}
+
+#overwrite {
+    margin-left: 2;
+    content-align: left middle;
+}
+
+#options-section Checkbox {
+    margin-right: 2;
+}
+
+#file-list {
+    margin-top: 1;
+    color: $text-muted;
+}
+
+#results-section {
+    height: 1fr;
+    border: round $primary;
+    margin-bottom: 1;
+}
+
+#results {
+    height: auto;
+    width: 1fr;
+}
+
+#action-row Button {
+    margin-right: 1;
+}
+
+#status {
+    height: auto;
+    width: 1fr;
+    padding: 0 1;
+    background: $panel;
+    color: $text;
+}
